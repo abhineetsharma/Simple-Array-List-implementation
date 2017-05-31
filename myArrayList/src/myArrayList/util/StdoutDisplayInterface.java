@@ -1,5 +1,5 @@
 package myArrayList.util;
 
-class StdoutDisplayInterface{
+interface StdoutDisplayInterface{
 	
 }

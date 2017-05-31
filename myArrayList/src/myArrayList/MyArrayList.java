@@ -1,21 +1,22 @@
 package myArrayList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MyArrayList {
 	private int[] array;
-	private int count;
+	private int size;
 
 	MyArrayList() {
 		this.array = new int[50];
 		for (int i = 0; i < 50; i++) {
 			this.array[i] = Integer.MAX_VALUE;
 		}
-		this.count = 0;
+		this.size = 0;
 	}
 
 	public void insertSorted(int newValue) {
-		if (this.count == this.array.length) {
+		if (this.size() == this.array.length) {
 			int[] temp = this.array;
 			int newSize = array.length + 25;
 			this.array = new int[newSize];
@@ -27,8 +28,14 @@ public class MyArrayList {
 			}
 			temp = null;
 		}
-		this.array[this.count++] = newValue;
-		Arrays.sort(this.array);
+//		this.array[this.size++] = newValue;
+//		Arrays.sort(this.array);
+
+		for(int i =0;i<this.size();i++){
+			if(this.array[i] > newValue){
+
+			}
+		}
 	}
 
 	public void removeValue(int value) {
@@ -38,7 +45,7 @@ public class MyArrayList {
 			for (int i = counter + 1; i < this.size(); i++) {
 				this.array[i - 1] = this.array[i];
 			}
-			this.array[this.count--] = Integer.MAX_VALUE;
+			this.array[this.size--] = Integer.MAX_VALUE;
 		}
 	}
 
@@ -60,7 +67,7 @@ public class MyArrayList {
 	}
 
 	public int size() {
-		return this.count;
+		return this.size;
 	}
 
 	@Override
