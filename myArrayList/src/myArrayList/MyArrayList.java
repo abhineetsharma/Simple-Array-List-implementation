@@ -2,7 +2,7 @@ package myArrayList;
 
 import java.util.Arrays;
 
-class MyArrayList {
+public class MyArrayList {
 	private int[] array;
 	private int count;
 
@@ -19,17 +19,15 @@ class MyArrayList {
 			int[] temp = this.array;
 			int newSize = array.length + 25;
 			this.array = new int[newSize];
-			int counter = 0;
 			for (int i = 0; i < this.array.length; i++) {
-				if (i < count)
+				if (i < this.size())
 					this.array[i] = temp[i];
 				else
 					this.array[i] = Integer.MAX_VALUE;
 			}
-
+			temp = null;
 		}
 		this.array[this.count++] = newValue;
-
 		Arrays.sort(this.array);
 	}
 
@@ -75,24 +73,24 @@ class MyArrayList {
 		return sbr.toString();
 	}
 
-	public void display() {
-		System.out.println();
-		for (int i = 0; i < this.count; i++) {
-			System.out.print(this.array[i] + " ");
-		}
-	}
-
-	public static void main(String[] args) {
-		MyArrayList A = new MyArrayList();
-
-		for (int i = 0; i < 51; i++) {
-			A.insertSorted(i + 1);
-		}
-		A.insertSorted(10);
-		for (int i = 10; i < 25; i++)
-		A.removeValue(51);
-		System.out.println(A.indexOf(1));
-		System.out.println(A.sum());
-		System.out.println(A.toString());
-	}
+//	public void display() {
+//		System.out.println();
+//		for (int i = 0; i < this.size(); i++) {
+//			System.out.print(this.array[i] + " ");
+//		}
+//	}
+//
+//	public static void main(String[] args) {
+//		MyArrayList A = new MyArrayList();
+//
+//		for (int i = 0; i < 51; i++) {
+//			A.insertSorted(i + 1);
+//		}
+//		A.insertSorted(10);
+//		for (int i = 10; i < 25; i++)
+//		A.removeValue(51);
+//		System.out.println(A.indexOf(1));
+//		System.out.println(A.sum());
+//		System.out.println(A.toString());
+//	}
 }
