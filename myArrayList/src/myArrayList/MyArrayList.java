@@ -1,6 +1,6 @@
-//package myArrayList;
+package myArrayList;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 class MyArrayList{
 	private int [] array;
@@ -8,29 +8,28 @@ class MyArrayList{
 
 	MyArrayList(){
 		this.array = new int[50];
-		for(int a : this.array){
-			a = Integer.MAX_VALUE;
+		for(int i=0;i<50;i++){
+			this.array[i] = Integer.MAX_VALUE;
 		}
 		this.count = 0;
 	}
 
 	public void insertSorted(int newValue){
 		if(this.count == this.array.length){
-			ArrayList<Integer> arli = new ArrayList<>();
-			for(int a : array){
-				arli.add(a);
-			}
+			int [] temp = this.array;
 			int newSize = array.length + 25;
 			this.array = new int[newSize];
 			int counter=0;
-			for(int a : arli){
-				array[counter++] = a;
+			for(int i =0;i<this.array.length;i++){
+				if(i<count)
+				this.array[i] = temp[i];
+				else this.array[i]= Integer.MAX_VALUE;;
 			}
 			
 		}
 		this.array[this.count++]= newValue;
 
-		Array.sort(this.array);
+		Arrays.sort(this.array);
 	}
 	public void removeValue(int value){
 		int counter = -1;
@@ -45,29 +44,61 @@ class MyArrayList{
 				flag = true;
 			}
 		}
-		if(counter>-1)this.count--;
-	}
-	public void indexOf(int value){}
-	public void sum(){}
-	public void size(){}
-	public void display(){
-		System.out.println();
-		for(int i=0;i<this.count;i++){
-			System.out.print(this.array[i]+" ");
+		if(counter>-1){
+			this.array[this.count] = Integer.MAX_VALUE;
+			this.count--;
 		}
 	}
-
-	public static void main(String [] args){
-		MyArrayList A = new MyArrayList();
-
-		for(int i =0;i< 76;i++){
-			A.insertSorted(i);
+	public int indexOf(int value){
+		int index =-1;
+		for(int i =0 ; i<this.count;i++){
+			if(value == this.array[i]){
+				index = i;
+				break;
+			}
 		}
-		A.removeValue(10);
-		A.removeValue(10);
-		A.removeValue(100);
-		A.removeValue(8);
-		A.display();
+
+
+		return index;
 	}
+	public int sum(){
+		int sum =0;
+		for(int i =0 ; i<this.count;i++){
+			sum+=this.array[i];
+		}
+		return sum;
+	}
+	public int size(){
+		return this.count;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sbr = new StringBuilder("\n");
+		for(int i = 0;i<this.count;i++ ){
+			sbr.append(this.array[i] + " ");
+		}
+		sbr.append("\n");
+		return sbr.toString();
+	}
+//	public void display(){
+//		System.out.println();
+//		for(int i=0;i<this.count;i++){
+//			System.out.print(this.array[i]+" ");
+//		}
+//	}
+
+//	public static void main(String [] args){
+//		MyArrayList A = new MyArrayList();
+//
+//		for(int i =0;i< 2;i++){
+//			A.insertSorted(i+1);
+//		}
+//		A.insertSorted(10);
+//
+//		System.out.println(A.indexOf(100));
+//		System.out.println(A.sum());
+//		System.out.println(A.toString());
+//	}
 	//public void toString(){}
 }
