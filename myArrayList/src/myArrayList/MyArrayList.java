@@ -7,8 +7,9 @@ public class MyArrayList {
 	private int[] array;
 	private int size;
 
-	MyArrayList() {
+	public MyArrayList() {
 		this.array = new int[50];
+
 		for (int i = 0; i < 50; i++) {
 			this.array[i] = Integer.MAX_VALUE;
 		}
@@ -16,32 +17,31 @@ public class MyArrayList {
 	}
 
 	public void insertSorted(int newValue) {
-		if (this.size() == this.array.length) {
-			int[] temp = this.array;
-			int newSize = array.length + 25;
-			this.array = new int[newSize];
-			for (int i = 0; i < this.array.length; i++) {
-				if (i < this.size())
-					this.array[i] = temp[i];
-				else
-					this.array[i] = Integer.MAX_VALUE;
-			}
-			temp = null;
-		}
-//		this.array[this.size++] = newValue;
-//		Arrays.sort(this.array);
+        int [] temp = this.array;
 
-		for(int i =0;i<this.size();i++){
-			if(this.array[i] > newValue){
-
-			}
-		}
+        if(this.size() == this.array.length)
+            this.array = new int[25+this.size()];
+        else
+            this.array = new int[this.array.length];
+        int i=0;
+		for( ;i<this.size();i++){
+		    if(newValue<temp[i])break;
+            this.array[i]=temp[i];
+        }
+        this.array[i]=newValue;
+        this.size++;
+        int  j=i+1;
+        for(;j<this.size();j++){
+            this.array[j]=temp[i];
+            i++;
+        }
 	}
 
 	public void removeValue(int value) {
-		int counter = this.indexOf(value);
 
-		if (counter > -1) {
+		int counter=-1;
+		while ((counter = this.indexOf(value)) > -1) {
+			//int counter = this.indexOf(value);
 			for (int i = counter + 1; i < this.size(); i++) {
 				this.array[i - 1] = this.array[i];
 			}
@@ -77,7 +77,9 @@ public class MyArrayList {
 			sbr.append(this.array[i] + " ");
 		}
 		sbr.append("\n");
-		return sbr.toString();
+		String str = sbr.toString();
+        System.out.println(str);
+		return str;
 	}
 
 //	public void display() {
