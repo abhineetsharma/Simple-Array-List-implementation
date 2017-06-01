@@ -4,6 +4,8 @@ import myArrayList.MyArrayList;
 
 public class MyArrayListTest{
 	public void testMe(MyArrayList myArrayList, Results results){
+        myArrayList.toString();
 
+        
     }
 }

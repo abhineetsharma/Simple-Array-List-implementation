@@ -10,7 +10,7 @@ public class FileProcessor{;
     public FileProcessor(){
         br=null;
         String path = String.format("%s/myArrayList/%s",System.getProperty("user.dir"),"input.txt");
-        System.out.println(path);
+        //System.out.println(path);
         file = new File(path);
         //System.out.println( System.getProperty("user.dir"));
         if(file.exists() && !file.isDirectory()){

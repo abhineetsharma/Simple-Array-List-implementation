@@ -14,7 +14,7 @@ public class Driver
         Results result = new Results();
         MyArrayListTest myArrliTest = new MyArrayListTest();
         FileProcessor fPro = new FileProcessor();
-        String str = null;
+        String str;
         while ((str = fPro.readLine()) != null){
              int val =0;
              try{
@@ -23,8 +23,8 @@ public class Driver
              }catch (NumberFormatException ex){}
         }
         str = null;
-        myArrli.toString();
-        myArrliTest.testMe(myArrli,result);
+
+        myArrliTest.testMe(myArrli, result);
 	}
 	
 }

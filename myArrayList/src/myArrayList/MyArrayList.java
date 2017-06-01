@@ -7,19 +7,28 @@ public class MyArrayList {
     public MyArrayList() {
         this.array = new int[50];
 
-        for (int i = 0; i < 50; i++) {
+        this.reinitializeArray();
+        this.size = 0;
+    }
+
+    private void increaseCapacity(){
+        this.array = new int[25 + this.size()];
+        this.reinitializeArray();
+    }
+    private void reinitializeArray(){
+        this.array = new int[this.array.length];
+        for (int i = 0; i < this.array.length; i++) {
             this.array[i] = Integer.MAX_VALUE;
         }
-        this.size = 0;
     }
 
     public void insertSorted(int newValue) {
         int[] temp = this.array;
 
         if (this.size() == this.array.length)
-            this.array = new int[25 + this.size()];
+            this.increaseCapacity();
         else
-            this.array = new int[this.array.length];
+            this.reinitializeArray();
         int i = 0;
         for (; i < this.size(); i++) {
             if (newValue < temp[i]) break;
