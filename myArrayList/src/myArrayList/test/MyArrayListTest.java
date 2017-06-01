@@ -41,7 +41,7 @@ public class MyArrayListTest
 
         // store the sum to the results file
         String result = "The sum of all the values in the array list is : " + myArrayList.sum();
-        System.out.println(result);
+        results.writeToFile(result);
     }
 
     public static void testMe(MyArrayList myArrayList, Results results)
@@ -105,7 +105,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.size() + " " + myArrayList.sum();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase2(MyArrayList myArrayList, Results results)
@@ -118,7 +118,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase3(MyArrayList myArrayList, Results results)
@@ -150,7 +150,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase4(MyArrayList myArrayList, Results results)
@@ -179,7 +179,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase5(MyArrayList myArrayList, Results results)
@@ -201,7 +201,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase6(MyArrayList myArrayList, Results results)
@@ -221,7 +221,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase7(MyArrayList myArrayList, Results results)
@@ -241,7 +241,7 @@ public class MyArrayListTest
         String actualResult = "" + myArrayList.indexOf(2);
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase8(MyArrayList myArrayList, Results results)
@@ -264,7 +264,7 @@ public class MyArrayListTest
         String actualResult = myArrayList.toString();
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase9(MyArrayList myArrayList, Results results)
@@ -286,7 +286,7 @@ public class MyArrayListTest
         String actualResult = "" + average;
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 
     private static void testCase10(MyArrayList myArrayList, Results results)
@@ -316,6 +316,6 @@ public class MyArrayListTest
         String actualResult = "" + average;
 
         // write to results
-        System.out.println(compareResults(testName, expectedResult, actualResult));
+        results.writeToFile(compareResults(testName, expectedResult, actualResult));
     }
 }

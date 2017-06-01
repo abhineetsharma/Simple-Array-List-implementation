@@ -1,0 +1,12 @@
+test 'List Initially Empty' passed
+test 'Remove from empty list' passed
+test 'Insert 10 Random Elements' passed
+test 'Store more than initial capacity of 50' passed
+test 'remove element from beginning, middle, and end' passed
+test 'adding duplicate elements' passed
+test 'indexOf returns index of first duplicated element' passed
+test 'removeValue removes only one duplicated element' failed
+Expected: 0 1 2 3 4
+Actual: 0 1 3 4
+test 'Calculate average of 7 numbers' passed
+test 'Calculate average of 7 numbers, after initially having 10' passed
