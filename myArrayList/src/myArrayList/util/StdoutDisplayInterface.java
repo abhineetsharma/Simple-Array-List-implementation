@@ -1,5 +1,5 @@
 package myArrayList.util;
 
-interface StdoutDisplayInterface{
+interface StdoutDisplayInterface {
     public void writeToStdout(String s);
 }

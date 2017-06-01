@@ -1,21 +1,20 @@
 package myArrayList;
 
 
-
 public class MyArrayList {
+    private final int INITIALSIZE = 50;
+    private final int INCREMENTSIZE = 25;
     private int[] array;
     private int size;
-
-    private final int INITIALSIZE = 50;
-    private final int INCREMENTSIZE =25;
 
     //Constructor
     public MyArrayList() {
         this.array = new int[INITIALSIZE];
         this.clear();
     }
+
     //Helper Functions
-    private int binarySearch(int value){
+    private int binarySearch(int value) {
         int start = 0;
         int end = this.size() - 1;
         while (start <= end) {
@@ -29,21 +28,24 @@ public class MyArrayList {
         }
         return -1;
     }
-    private void increaseCapacity(){
+
+    private void increaseCapacity() {
         this.array = new int[INCREMENTSIZE + this.size()];
         this.reinitializeArrayWithDefaultValues();
     }
-    private void reinitializeArrayWithDefaultValues(){
+
+    private void reinitializeArrayWithDefaultValues() {
         this.array = new int[this.array.length];
         for (int i = 0; i < this.array.length; i++) {
             this.array[i] = Integer.MAX_VALUE;
         }
     }
 
-    public void clear(){
+    public void clear() {
         this.reinitializeArrayWithDefaultValues();
         this.size = 0;
     }
+
     public void insertSorted(int newValue) {
         int[] temp = this.array;
 
@@ -64,6 +66,7 @@ public class MyArrayList {
         }
         temp = null;
     }
+
     public void removeValue(int value) {
 
         int counter = -1;
@@ -75,11 +78,13 @@ public class MyArrayList {
             this.array[this.size--] = Integer.MAX_VALUE;
         }
     }
+
     public int indexOf(int value) {
-        for(int i=0;i<this.size();i++)
-            if(this.array[i]==value)return i;
+        for (int i = 0; i < this.size(); i++)
+            if (this.array[i] == value) return i;
         return -1;
     }
+
     public int sum() {
         int sum = 0;
         for (int i = 0; i < this.size(); i++) {
@@ -87,9 +92,11 @@ public class MyArrayList {
         }
         return sum;
     }
+
     public int size() {
         return this.size;
     }
+
     @Override
     public String toString() {
         StringBuilder sbr = new StringBuilder();
