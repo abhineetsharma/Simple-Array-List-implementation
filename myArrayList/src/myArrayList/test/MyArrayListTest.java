@@ -6,7 +6,7 @@ import myArrayList.util.Results;
 public class MyArrayListTest {
     public void testMe(MyArrayList myArrayList, Results results) {
         myArrayList.toString();
-
+        results.writeToFile("123");
 
     }
 }

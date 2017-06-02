@@ -4,14 +4,14 @@ import java.io.*;
 
 
 public class FileProcessor {
-    ;
+
     private File file;
     private FileInputStream fstream;
     private BufferedReader br;
 
-    public FileProcessor() {
+    public FileProcessor(String path) {
         br = null;
-        String path = String.format("%s/%s", System.getProperty("user.dir"), "input.txt");
+        //tring path = String.format("%s/myArrayList/%s", System.getProperty("user.dir"), "input.txt");
         System.out.println(path);
         file = new File(path);
         if (file.exists() && !file.isDirectory()) {
@@ -23,10 +23,12 @@ public class FileProcessor {
                     br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.exit(0);
                 }
             }
         } else {
             System.out.println("input File not found");
+            System.exit(0);
         }
     }
 
