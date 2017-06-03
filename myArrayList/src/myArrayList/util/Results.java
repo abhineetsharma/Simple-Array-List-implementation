@@ -19,13 +19,15 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
         this.sbr.append("\n" + str);
     }
 
-    public void storeNewResult() {
-
+    public void storeNewResult(Object obj) {
+        String str =  obj.toString();
+        this.writeToStdout(str);
+        this.writeToFile(str);
     }
 
     @Override
     public void writeToStdout(String str) {
-        System.out.println(str);
+        System.out.println(str.toString());
     }
 
     @Override
@@ -33,7 +35,7 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
 
         //String path = String.format("%s/myArrayList/src/myArrayList/store/%s", System.getProperty("user.dir"), "output.txt");
 
-        File file = null;
+        File file ;
         try {
             this.add(str);
             file = new File(this.outputPath);
@@ -47,6 +49,7 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
                 writer.write(str1);
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 

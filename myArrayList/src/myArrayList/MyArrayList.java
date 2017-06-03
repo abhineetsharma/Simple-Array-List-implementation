@@ -103,7 +103,7 @@ public class MyArrayList {
         for (int i = 0; i < this.size(); i++)
             sbr.append(this.array[i] + " ");
         String str = sbr.toString().trim();
-        System.out.println(str);
+        //System.out.println(str);
         return str;
     }
 

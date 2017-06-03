@@ -20,19 +20,18 @@ public class Driver {
             FileProcessor fPro = new FileProcessor(iPath);
             String str;
             while ((str = fPro.readLine()) != null) {
-                int val = 0;
+                int val;
                 try {
                     val = Integer.parseInt(str);
                     myArrli.insertSorted(val);
                 } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
                 }
             }
-            str = null;
-
             myArrliTest.testMe(myArrli, result);
         } else {
             System.out.println("Arguments not passed correctly");
-            System.exit(0);
+            System.exit(1);
         }
     }
 

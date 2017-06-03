@@ -8,11 +8,11 @@ public class FileProcessor {
     private File file;
     private FileInputStream fstream;
     private BufferedReader br;
+    private String filePath;
 
     public FileProcessor(String path) {
         br = null;
-        //tring path = String.format("%s/myArrayList/%s", System.getProperty("user.dir"), "input.txt");
-        System.out.println(path);
+        this.filePath = path;
         file = new File(path);
         if (file.exists() && !file.isDirectory()) {
             try {
@@ -23,12 +23,12 @@ public class FileProcessor {
                     br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    System.exit(0);
+                    System.exit(1);
                 }
             }
         } else {
             System.out.println("input File not found");
-            System.exit(0);
+            System.exit(1);
         }
     }
 
@@ -49,4 +49,7 @@ public class FileProcessor {
         return null;
     }
 
+    public String getFilePath() {
+        return this.filePath;
+    }
 }

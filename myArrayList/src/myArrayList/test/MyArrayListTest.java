@@ -1,322 +1,284 @@
 package myArrayList.test;
 
+
 import myArrayList.MyArrayList;
 import myArrayList.util.Results;
 
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MyArrayListTest {
-    public void testMe(MyArrayList myArrayList, Results results) {
-        myArrayList.toString();
-        results.writeToFile("123");
+    private Results results;
+    private MyArrayList myArrayList;
+    private int testNumber;
+    private String dash72;
+
+    public MyArrayListTest() {
+        this.testNumber = 1;
+        this.dash72 = generate72Dash();
+    }
+
+    private void initializeMyArrayListObject(MyArrayList myArrayListObj) {
+        this.myArrayList = myArrayListObj;
+    }
+
+    private void initializeResultObj(Results result) {
+        this.results = result;
+    }
+
+    public void testMe(MyArrayList myArrayListObj, Results result) {
+        this.initializeMyArrayListObject(myArrayListObj);
+        this.initializeResultObj(result);
+
+        this.test1();
+        this.test2();
+        this.test3();
+        this.test4();
+        this.test5();
+        this.test6();
+        this.test7();
+        this.test8();
+        this.test9();
+        this.test10();
 
     }
+
+    private int getRandomNumberFromRange(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
+    }
+
+    private void compareTestCase(String testCaseName, Object acceptedResult, Object outputResult) {
+        String sCompare = this.stringCompare(acceptedResult.toString(), outputResult.toString()) ? "Passed" : "Failed";
+        String str = String.format("%sTest Number : %d\n%s\nAspected : %s\nOutput : %s\nResult : %s\n%s",
+                this.dash72,
+                this.getCurrentTestNumber(),
+                testCaseName,
+                acceptedResult,
+                outputResult,
+                sCompare,
+                this.dash72);
+        this.results.storeNewResult(str);
+    }
+
+    private boolean stringCompare(String str1, String str2) {
+        return str1.trim().equalsIgnoreCase(str2.trim());
+    }
+
+    private int getCurrentTestNumber() {
+        return this.testNumber++;
+    }
+
+    private String generate72Dash() {
+        StringBuilder sbr = new StringBuilder();
+        for (int i = 0; i < 72; i++) sbr.append("-");
+        sbr.append("\n");
+        return sbr.toString();
+    }
+
+    private int[] getArrayFromMyArrayList(int bandwidth) {
+        //System.out.println("gal "+ this.myArrayList.toString());
+        String[] sArray = this.myArrayList.toString().split(" ");
+        int[] arr = new int[sArray.length + bandwidth];
+        int i = 0;
+        for (int a : arr) {
+            arr[i++] = Integer.MAX_VALUE;
+        }
+        i = 0;
+        for (String s : sArray) {
+            arr[i++] = Integer.parseInt(s);
+        }
+        return arr;
+    }
+
+    private String stringifyArray(int size, int[] array) {
+        StringBuilder sbr = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            if (array[i] == -1) continue;
+            sbr.append(array[i] + " ");
+        }
+        String str = sbr.toString().trim();
+        return str;
+    }
+
+    private void test1() {
+        String test = "Check the size of the array  after Insert a element in to the Array";
+        int accepted = this.myArrayList.size() + 1;
+        this.myArrayList.insertSorted(1);
+        int output = this.myArrayList.size();
+
+        this.compareTestCase(test, accepted, output);
+
+    }
+
+    private void test2() {
+        int num = 22;
+        String test = "Check if the element inserted into the array is inserted and sorted properly \nnumber to be inserted is " + num;
+        int[] arr = this.getArrayFromMyArrayList(1);
+        int sizeBefore = this.myArrayList.size();
+
+        if (sizeBefore < arr.length) {
+            arr[arr.length - 1] = num;
+        }
+        Arrays.sort(arr);
+
+        String accepted = this.stringifyArray(sizeBefore + 1, arr);
+        this.myArrayList.insertSorted(num);
+        String output = this.myArrayList.toString();
+        this.compareTestCase(test, accepted, output);
+    }
+
+    private void test3() {
+        int[] arr = this.getArrayFromMyArrayList(0);
+        int index = this.getRandomNumberFromRange(0, arr.length - 1);
+        int num = arr[index];
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == num) arr[i] = -1;
+        }
+        String test = "Check if the element removal from the array (" + num + ")";
+
+
+        String accepted = stringifyArray(arr.length, arr);
+        this.myArrayList.removeValue(num);
+        String output = this.myArrayList.toString();
+        this.compareTestCase(test, accepted, output);
+
+    }
+
+    private void test4() {
+        int num = 100;
+        String test = "Check by doing 2 insert of the same value (" + num + ")";
+
+        int[] arr = this.getArrayFromMyArrayList(2);
+        arr[arr.length - 2] = num;
+        arr[arr.length - 1] = num;
+        Arrays.sort(arr);
+
+
+        String accepted = stringifyArray(arr.length, arr);
+        this.myArrayList.insertSorted(num);
+        this.myArrayList.insertSorted(num);
+        String output = this.myArrayList.toString();
+        this.compareTestCase(test, accepted, output);
+    }
+
+    private void test5() {
+        int num = 22;
+        String test = "Check to remove all instance of element from the array (2 instance of " + num + " will be entered and removed)";
+
+
+        int[] arr = this.getArrayFromMyArrayList(2);
+
+        arr[arr.length - 2] = num;
+        arr[arr.length - 1] = num;
+
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == num) arr[i] = -1;
+        }
+
+
+        String accepted = stringifyArray(arr.length, arr);
+        this.myArrayList.insertSorted(num);
+        this.myArrayList.insertSorted(num);
+        this.myArrayList.removeValue(num);
+        String output = this.myArrayList.toString();
+        this.compareTestCase(test, accepted, output);
+
+    }
+
+    private void test6() {
+        int size = 25;
+        String test = "Check in a clean my myarraylist by " + size + " inserting random numbers from 0 to 10001";
+        this.myArrayList.clear();
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            int num = this.getRandomNumberFromRange(0, 10001);
+            arr[i] = num;
+            myArrayList.insertSorted(num);
+        }
+        Arrays.sort(arr);
+        String accepted = stringifyArray(arr.length, arr);
+        String output = this.myArrayList.toString();
+
+        this.compareTestCase(test, accepted, output);
+    }
+
+    private void test7() {
+        int[] arr = this.getArrayFromMyArrayList(0);
+        int index = this.getRandomNumberFromRange(0, arr.length - 1);
+
+        int num = arr[index];
+        int accepted = index;
+        String test = "Check the index of a known element inside a MyArrayList\n" + this.myArrayList.toString() + "\nfor element " + num + " index is " + index;
+
+        int output = this.myArrayList.indexOf(num);
+        this.compareTestCase(test, accepted, output);
+    }
+
+    private void test8() {
+        int num;
+        while (true) {
+            num = this.getRandomNumberFromRange(0, 10000);
+            if (this.myArrayList.indexOf(num) == -1)
+                break;
+        }
+        String test = "Check the index of a element not in the MyArrayList (" + num + ")\n" + this.myArrayList.toString();
+        this.compareTestCase(test, -1, this.myArrayList.indexOf(num));
+    }
+
+    private void test9() {
+        String test = "Heavy test: 100 iteration of random insert and remove";
+        StringBuilder sbr = new StringBuilder();
+        this.myArrayList.clear();
+        int[] arr = new int[100];
+        for (int a = 0; a < arr.length; a++) arr[a] = Integer.MAX_VALUE;
+        int count = 0;
+        for (int i = 0; i < 100; i++) {
+            int num = this.getRandomNumberFromRange(1, 2);
+            int value = this.getRandomNumberFromRange(0, 10000);
+
+            switch (num) {
+                case 1:
+                    this.myArrayList.insertSorted(value);
+                    sbr.append(" (+)" + value + " ");
+                    arr[i] = value;
+                    count++;
+                    Arrays.sort(arr);
+                    break;
+                case 2:
+                    this.myArrayList.removeValue(value);
+                    sbr.append(" (-)" + value + " ");
+
+                    int f = 0;
+                    while (true) {
+                        if (arr[f] == Integer.MAX_VALUE) break;
+                        if (f == arr.length || arr[f] == Integer.MAX_VALUE) break;
+                        else {
+                            for (; f < arr.length; f++) {
+                                if (arr[f] == Integer.MAX_VALUE) break;
+                                if (value == arr[f]) {
+                                    arr[f] = -1;
+                                    if (count - 1 == -1) count = 0;
+                                    else count--;
+                                }
+                            }
+                        }
+
+                    }
+            }
+        }
+        String str = sbr.toString();
+        String acc = this.stringifyArray(this.myArrayList.size(), arr);
+        String out = this.myArrayList.toString();
+        this.compareTestCase(test + "\n" + str, acc, out);
+    }
+
+    private void test10() {
+        String test = "Check the size of the empty array";
+        String accepted = "0";
+        this.myArrayList.clear();
+        int output = this.myArrayList.size();
+        this.compareTestCase(test, accepted, output);
+    }
+
 }
-//package myArrayList.test;
-//
-//import java.util.Arrays;
-//import java.util.Random;
-//
-//import myArrayList.MyArrayList;
-//import myArrayList.util.FileProcessor;
-//import myArrayList.util.Results;
-//
-//public class MyArrayListTest
-//{
-//    public static void sumTest(MyArrayList myArrayList, Results results, FileProcessor fileProcessor)
-//    {
-//        // read in all the elements from the input file
-//        String line = "";
-//        while ((line = fileProcessor.readLine()) != null)
-//        {
-//            int intToInsert = 0;
-//            try
-//            {
-//                intToInsert = Integer.parseInt(line);
-//            }
-//            catch (NumberFormatException e)
-//            {
-//                System.err.println("Couldn't convert '" + line + "' to an int. Terminating the program.");
-//                System.exit(1);
-//            }
-//            myArrayList.insertSorted(intToInsert);
-//        }
-//
-//        // store the sum to the results file
-//        String result = "The sum of all the values in the array list is : " + myArrayList.sum();
-//        results.writeToFile(result);
-//    }
-//
-//    public static void testMe(MyArrayList myArrayList, Results results)
-//    {
-//        // run the test cases
-//        myArrayList.clear();
-//        testCase1(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase2(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase3(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase4(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase5(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase6(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase7(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase8(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase9(myArrayList, results);
-//
-//        myArrayList.clear();
-//        testCase10(myArrayList, results);
-//    }
-//
-//    private static String compareResults(String testName, String expectedResult, String actualResult)
-//    {
-//        String result = "";
-//
-//        if (expectedResult.compareToIgnoreCase(actualResult) == 0)
-//        {
-//            result = "test " + testName + " passed";
-//        }
-//        else
-//        {
-//            result = "test " + testName + " failed\n";
-//            result += "Expected: " + expectedResult +"\n";
-//            result += "Actual: " + actualResult;
-//        }
-//
-//        return result;
-//    }
-//
-//    private static void testCase1(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'List Initially Empty'";
-//
-//        // array list should be empty after a clear
-//        String expectedResult = "0 0";
-//        String actualResult = myArrayList.size() + " " + myArrayList.sum();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase2(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'Remove from empty list'";
-//
-//        // try to remove from empty list, shouldn't cause an error and list should still be empty
-//        String expectedResult = "";
-//        myArrayList.removeValue(5);
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase3(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'Insert 10 Random Elements'";
-//        int[] array = new int[10];
-//
-//        // try to insert 10 random elements into the array
-//        Random random = new Random();
-//        for (int i = 0; i < 10; i++)
-//        {
-//            int randomInt = random.nextInt(10001);
-//            array[i] = randomInt;
-//            myArrayList.insertSorted(randomInt);
-//        }
-//
-//        // use the java sort function to sort the expected results array
-//        Arrays.sort(array);
-//        String expectedResult = "";
-//        for (int i = 0; i < array.length; i++)
-//        {
-//            expectedResult += array[i];
-//            if (i < (array.length - 1))
-//            {
-//                expectedResult += " ";
-//            }
-//        }
-//
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase4(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'Store more than initial capacity of 50'";
-//        int[] array = new int[51];
-//
-//        // store more than 50 elements into array
-//        for (int i = 51; i > 0; i--)
-//        {
-//            array[i-1] = i;
-//            myArrayList.insertSorted(i);
-//        }
-//
-//        // expected result is already in ascending order
-//        String expectedResult = "";
-//        for (int i = 0; i < array.length; i++)
-//        {
-//            expectedResult += array[i];
-//            if (i < (array.length - 1))
-//            {
-//                expectedResult += " ";
-//            }
-//        }
-//
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase5(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'remove element from beginning, middle, and end'";
-//        String expectedResult = "1 2 4 5";
-//
-//        // store 7 elements into the array
-//        for (int i = 0; i < 7; i++)
-//        {
-//            myArrayList.insertSorted(i);
-//        }
-//
-//        // remove the first, middle, and last elements
-//        myArrayList.removeValue(0);
-//        myArrayList.removeValue(3);
-//        myArrayList.removeValue(6);
-//
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase6(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'adding duplicate elements'";
-//        String expectedResult = "0 1 2 2 3 4";
-//
-//        // store 5 elements into the array
-//        for (int i = 0; i < 5; i++)
-//        {
-//            myArrayList.insertSorted(i);
-//        }
-//
-//        // insert duplicate 2
-//        myArrayList.insertSorted(2);
-//
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase7(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'indexOf returns index of first duplicated element'";
-//        String expectedResult = "2";
-//
-//        // store 5 elements into the array
-//        for (int i = 0; i < 5; i++)
-//        {
-//            myArrayList.insertSorted(i);
-//        }
-//
-//        // insert duplicate 2
-//        myArrayList.insertSorted(2);
-//
-//        String actualResult = "" + myArrayList.indexOf(2);
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase8(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'removeValue removes only one duplicated element'";
-//        String expectedResult = "0 1 2 3 4";
-//
-//        // store 5 elements into the array
-//        for (int i = 0; i < 5; i++)
-//        {
-//            myArrayList.insertSorted(i);
-//        }
-//
-//        // insert duplicate 2
-//        myArrayList.insertSorted(2);
-//
-//        // remove the duplicate 2
-//        myArrayList.removeValue(2);
-//
-//        String actualResult = myArrayList.toString();
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase9(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'Calculate average of 7 numbers'";
-//        String expectedResult = "2"; // will be 2 after casting to an int
-//
-//        // store 7 elements into an array
-//        myArrayList.insertSorted(1);
-//        myArrayList.insertSorted(4);
-//        myArrayList.insertSorted(-2);
-//        myArrayList.insertSorted(5);
-//        myArrayList.insertSorted(7);
-//        myArrayList.insertSorted(-8);
-//        myArrayList.insertSorted(10);
-//
-//        // calculate average
-//        int average = myArrayList.sum() / myArrayList.size();
-//        String actualResult = "" + average;
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//
-//    private static void testCase10(MyArrayList myArrayList, Results results)
-//    {
-//        String testName = "'Calculate average of 7 numbers, after initially having 10'";
-//        String expectedResult = "-2"; // will be -2 after casting to an int
-//
-//        // store 10 elements into an array
-//        myArrayList.insertSorted(1);
-//        myArrayList.insertSorted(4);
-//        myArrayList.insertSorted(-2);
-//        myArrayList.insertSorted(5);
-//        myArrayList.insertSorted(7);
-//        myArrayList.insertSorted(-8);
-//        myArrayList.insertSorted(10);
-//        myArrayList.insertSorted(-5);
-//        myArrayList.insertSorted(0);
-//        myArrayList.insertSorted(-20);
-//
-//        // remove 3 elements
-//        myArrayList.removeValue(-2);
-//        myArrayList.removeValue(4);
-//        myArrayList.removeValue(7);
-//
-//        // calculate average
-//        int average = myArrayList.sum() / myArrayList.size();
-//        String actualResult = "" + average;
-//
-//        // write to results
-//        results.writeToFile(compareResults(testName, expectedResult, actualResult));
-//    }
-//}

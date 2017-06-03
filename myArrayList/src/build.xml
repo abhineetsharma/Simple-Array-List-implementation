@@ -1,9 +1,9 @@
 <project name="myArrayList" default="compile_all" basedir="..">
 
-    <property name="BUILD.compiler" value="modern"/>
-    <property name="src" value="src"/>
-    <property name="BUILD" value="src/BUILD"/>
-    <property name="classes" value="${BUILD}/classes"/>
+    <property name="BUILD.compiler"       value="modern"/>
+    <property name="src"                  value="src"/>
+    <property name="BUILD"                value="src/BUILD"/>
+    <property name="classes"              value="${BUILD}/classes"/>
 
 
     <target name="all" depends="compile_all"/>
@@ -32,6 +32,7 @@
     </target>
 
 
+
     <!-- ** means all subdirectories as well -->
     <!-- * means all files in the current directory -->
     <!-- for just java files use *.java -->
@@ -49,7 +50,7 @@
 
 
     <target name="run" depends="jar">
-        <java jar="${BUILD}/jar/myArrayList.jar" fork="true">
+        <java jar="${BUILD}/jar/myArrayList.jar"  fork="true">
             <arg value="${arg0}"/>
             <arg value="${arg1}"/>
         </java>
