@@ -2,108 +2,132 @@ package myArrayList;
 
 
 public class MyArrayList {
-    private final int INITIALSIZE = 50;
-    private final int INCREMENTSIZE = 25;
+    private static final int INITIALSIZE = 50;
+    private static final int MAXVALUE = Integer.MAX_VALUE;
+    private static final int MIN = 0;
+    private static final int MAX = 10000;
     private int[] array;
     private int size;
 
     //Constructor
     public MyArrayList() {
-        this.array = new int[INITIALSIZE];
+        this.setArray(INITIALSIZE);
         this.clear();
     }
+
+    //Array accessor
+    private int[] getArray(){
+        return array;
+    }
+    private void setArray(int length){
+        array = new int[length];
+    }
+    private int getArrayElement(int index) {
+        return array[index];
+    }
+    private int getArrayLength(){
+        return array.length;
+    }
+    private void setArrayElement(int index,int val) {
+        this.array[index] = val;
+    }
+
 
     //Helper Functions
     private int binarySearch(int value) {
         int start = 0;
-        int end = this.size() - 1;
+        int end = size() - 1;
         while (start <= end) {
             int mid = (start + end) / 2;
-            if (value == this.array[mid])
+            if (value == getArrayElement(mid))
                 return mid;
-            if (value < this.array[mid])
+            if (value < getArrayElement(mid))
                 end = mid - 1;
             else
                 start = mid + 1;
         }
         return -1;
     }
-
     private void increaseCapacity() {
-        this.array = new int[INCREMENTSIZE + this.size()];
-        this.reinitializeArrayWithDefaultValues();
+        int incrementSize = size()/2;
+        setArray(incrementSize + size());
+        reinitializeArrayWithDefaultValues();
     }
-
     private void reinitializeArrayWithDefaultValues() {
-        this.array = new int[this.array.length];
-        for (int i = 0; i < this.array.length; i++) {
-            this.array[i] = Integer.MAX_VALUE;
+        setArray(getArrayLength());
+        for (int i = 0; i < getArrayLength(); ) {
+            setArrayElement(i++,MAXVALUE);
         }
     }
+    private boolean validityOfNumber(int val) {
+        return val >= MIN && val <= MAX;
+    }
 
+    //API function
     public void clear() {
-        this.reinitializeArrayWithDefaultValues();
-        this.size = 0;
+        size = 0;
+        reinitializeArrayWithDefaultValues();
     }
 
     public void insertSorted(int newValue) {
-        int[] temp = this.array;
+        if(validityOfNumber(newValue)){
+            int[] temp = getArray();
 
-        if (this.size() == this.array.length)
-            this.increaseCapacity();
-        else
-            this.reinitializeArrayWithDefaultValues();
-        int i = 0;
-        for (; i < this.size(); i++) {
-            if (newValue < temp[i]) break;
-            this.array[i] = temp[i];
+            if (size() == getArrayLength())
+                increaseCapacity();
+            else
+                reinitializeArrayWithDefaultValues();
+
+            int i = 0;
+            for (; i < size(); i++) {
+                if (newValue < temp[i]) break;
+                setArrayElement(i,temp[i]);
+            }
+            setArrayElement(i, newValue);
+            size++;
+            for (int j = i + 1;j < size(); j++) {
+                setArrayElement(j,temp[i++]);
+            }
         }
-        this.array[i] = newValue;
-        this.size++;
-        int j = i + 1;
-        for (; j < this.size(); j++) {
-            this.array[j] = temp[i++];
-        }
-        temp = null;
     }
 
     public void removeValue(int value) {
-
-        int counter = -1;
-        while ((counter = this.binarySearch(value)) > -1) {
-            //int counter = this.indexOf(value);
-            for (int i = counter + 1; i < this.size(); i++) {
-                this.array[i - 1] = this.array[i];
+        int counter;
+        while ((counter = binarySearch(value)) > -1) {
+            for (int i = counter + 1; i < size(); i++) {
+                setArrayElement(i - 1 , getArrayElement(i));
             }
-            this.array[this.size--] = Integer.MAX_VALUE;
+            setArrayElement(size--, MAXVALUE);
         }
     }
 
     public int indexOf(int value) {
-        for (int i = 0; i < this.size(); i++)
-            if (this.array[i] == value) return i;
+        for (int i = 0; i < size(); i++){
+            int arrVal = getArrayElement(i);
+            if (arrVal == value) return i;
+        }
         return -1;
     }
 
     public int sum() {
         int sum = 0;
-        for (int i = 0; i < this.size(); i++) {
-            sum += this.array[i];
+        for (int i = 0; i < size(); i++) {
+            sum += getArrayElement(i);
         }
         return sum;
     }
 
     public int size() {
-        return this.size;
+        return size;
     }
 
     @Override
     public String toString() {
         StringBuilder sbr = new StringBuilder();
-        for (int i = 0; i < this.size(); i++)
-            sbr.append(this.array[i] + " ");
+        for (int i = 0; i < size(); i++)
+            sbr.append(getArrayElement(i) + " ");
         String str = sbr.toString().trim();
-        //System.out.println(str);
+        System.out.println(str);
         return str;
     }
 

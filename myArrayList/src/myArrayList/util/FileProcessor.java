@@ -1,40 +1,55 @@
 package myArrayList.util;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 
 public class FileProcessor {
 
+    private String path;
     private File file;
-    private FileInputStream fstream;
     private BufferedReader br;
-    private String filePath;
 
     public FileProcessor(String path) {
+        this.path = path;
+        initializeAndGetFileObject();
+    }
+
+    private BufferedReader initializeAndGetBufferedReaderObject(FileInputStream fStream){
+        return new BufferedReader(new InputStreamReader(fStream));
+    }
+
+    private void initializeAndGetFileObject(){
         br = null;
-        this.filePath = path;
+        String path = getFilePath();
         file = new File(path);
         if (file.exists() && !file.isDirectory()) {
             try {
-                fstream = new FileInputStream(file);
-                br = new BufferedReader(new InputStreamReader(fstream));
+                br = initializeAndGetBufferedReaderObject(new FileInputStream(file));
             } catch (IOException ex) {
                 if (br != null) try {
                     br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    System.exit(1);
+                    System.exit(0);
                 }
             }
         } else {
             System.out.println("input File not found");
-            System.exit(1);
+            System.exit(0);
         }
     }
 
+    private String getFilePath() {
+        return this.path;
+    }
+
     public String readLine() {
-        String strLine;
         if (file.exists() && !file.isDirectory()) {
+            String strLine;
             try {
                 if ((strLine = br.readLine()) != null)
                     return strLine;
@@ -47,9 +62,5 @@ public class FileProcessor {
             }
         }
         return null;
-    }
-
-    public String getFilePath() {
-        return this.filePath;
     }
 }

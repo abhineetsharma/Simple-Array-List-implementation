@@ -6,9 +6,18 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
 
     private StringBuilder sbr;
     private String outputPath;
+
     public Results(String path) {
         this.sbr = new StringBuilder();
-        this.outputPath = path;
+        this.setOutputPath(path);
+    }
+
+    private String getOutputPath() {
+        return outputPath;
+    }
+
+    private void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
     }
 
     private String getString() {
@@ -16,13 +25,14 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
     }
 
     private void add(String str) {
-        this.sbr.append("\n" + str);
+        str = String.format("%s%s",str,"\n");
+        sbr.append(str);
     }
 
     public void storeNewResult(Object obj) {
         String str =  obj.toString();
-        this.writeToStdout(str);
-        this.writeToFile(str);
+        writeToStdout(str);
+        writeToFile(str);
     }
 
     @Override
@@ -33,25 +43,27 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
     @Override
     public void writeToFile(String str) {
 
-        //String path = String.format("%s/myArrayList/src/myArrayList/store/%s", System.getProperty("user.dir"), "output.txt");
-
         File file ;
         try {
-            this.add(str);
-            file = new File(this.outputPath);
+            add(str);
+            file = new File(getOutputPath());
 
             if (file.exists() && !file.isDirectory()) {
                 file.delete();
             }
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(this.outputPath), "utf-8"))) {
-                String str1 = this.getString();
+                    new FileOutputStream(getOutputPath()), "utf-8"))) {
+                String str1 = getString();
                 writer.write(str1);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            System.out.println("Error in printing into the output file");
+            System.exit(0);
         }
 
 
     }
+
+
 }
