@@ -29,13 +29,16 @@ grade of 0 for the involved assignment for my first offense and that I
 will receive a grade of F for the course for any additional
 offense.”
 
-[Date: ]
+[Date: 5/8/2017]
 
 -----------------------------------------------------------------------
 
 Provide justification for Data Structures used in this assignment in
 term of Big O complexity (time and/or space)
-
+Insert into the Array are complexity O(n)
+IndexOf use binary search and in case of multiple occurrence of a element the index moves to wards the first occurrence of the number
+(time complexity Average case: log n).
+remove uses the indexOf to search the element and remove.
 -----------------------------------------------------------------------
 
 Provide list of citations (urls, etc.) from where you have taken code
