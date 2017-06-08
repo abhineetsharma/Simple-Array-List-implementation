@@ -9,12 +9,12 @@ import java.io.IOException;
 
 public class FileProcessor {
 
-    private String path;
+    private String inputPath;
     private File file;
     private BufferedReader br;
 
     public FileProcessor(String path) {
-        this.path = path;
+        this.setInputPath(path);
         initializeAndGetFileObject();
     }
 
@@ -44,7 +44,7 @@ public class FileProcessor {
     }
 
     private String getFilePath() {
-        return this.path;
+        return getInputPath();
     }
 
     public String readLine() {
@@ -62,5 +62,22 @@ public class FileProcessor {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString(){
+        String className = this.getClass().getName();
+        String description = "This class has a method String readLine(...), which returns one line at a time from a file.";
+        String str = String.format("Class : %s\nMethod toString()\nDescription : %s\nPrivate variable inputPath value is : %s\n",className,description,getFilePath());
+        System.out.println(str);
+        return str;
+    }
+
+    private String getInputPath() {
+        return inputPath;
+    }
+
+    private void setInputPath(String inputPath) {
+        this.inputPath = inputPath;
     }
 }

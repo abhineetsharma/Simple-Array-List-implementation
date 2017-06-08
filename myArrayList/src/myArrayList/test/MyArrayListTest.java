@@ -29,7 +29,6 @@ public class MyArrayListTest {
         initializeMyArrayListObject(myArrayListObj);
         initializeResultObj(result);
 
-
         test1();
         test2();
         test3();
@@ -40,8 +39,6 @@ public class MyArrayListTest {
         test8();
         test9();
         test10();
-        test11();
-
     }
 
     private int getRandomNumberFromRange(int min, int max) {
@@ -52,10 +49,11 @@ public class MyArrayListTest {
         String sCompare = stringCompare(acceptedResult.toString(), outputResult.toString()) ? "Passed" : "Failed";
         int testNumber = getCurrentTestNumber();
         boolean isPassed = sCompare.equalsIgnoreCase("passed");
-        String str = String.format("%sTest Number : %d\n%s%s%s\nResult : %s\n%s",
+        String str = String.format("%sTest Number : %d\n%s%s%s%s\nResult : %s\n%s",
                 dash72,
                 testNumber,
                 testCaseName,
+                !isPassed?"":"\nThe sum of all the values in the array list is: "+myArrayList.sum(),
                 isPassed?"":"\nAccepted : "+acceptedResult,
                 isPassed?"":"\nOutput : "+outputResult,
                 sCompare,
@@ -112,7 +110,7 @@ public class MyArrayListTest {
     }
 
     private void test2() {
-        int num = 22;
+        int num = getRandomNumberFromRange(0,10000);
         String test = "Check if the element inserted into the array is inserted and sorted properly \nnumber to be inserted is " + num;
         int[] arr = getArrayFromMyArrayList(1);
         int sizeBefore = myArrayList.size();
@@ -227,47 +225,9 @@ public class MyArrayListTest {
         compareTestCase(test, -1, myArrayList.indexOf(num));
     }
 
+
+
     private void test9() {
-        String test = "Heavy test: 500 iteration of random insert and remove";
-        StringBuilder sbr = new StringBuilder();
-        myArrayList.clear();
-        int[] arr = new int[500];
-        for (int a = 0; a < arr.length; a++) arr[a] = Integer.MAX_VALUE;
-        int count = 0;
-        for (int i = 0; i < 500; i++) {
-            int num = getRandomNumberFromRange(1, 2);
-            int value = getRandomNumberFromRange(0, 10000);
-
-            switch (num) {
-                case 1:
-                    myArrayList.insertSorted(value);
-                    sbr.append(" (+)" + value + " ");
-                    arr[i] = value;
-                    count++;
-                    break;
-                case 2:
-                    myArrayList.removeValue(value);
-                    sbr.append(" (-)" + value + " ");
-
-                    int index=0;
-                    while((index = Arrays.asList(arr).indexOf(value))>-1){
-                        arr[index]=Integer.MAX_VALUE;
-                        count--;
-                        if(count<0)count=0;
-                    }
-
-                    break;
-
-            }
-        }
-        Arrays.sort(arr);
-        String str = sbr.toString();
-        String acc = stringifyArray(myArrayList.size(), arr);
-        String out = myArrayList.toString();
-        compareTestCase(test + "\n" + str, acc, out);
-    }
-
-    private void test10() {
         String test = "Check the size of the empty array";
         String accepted = "0";
         myArrayList.clear();
@@ -275,7 +235,7 @@ public class MyArrayListTest {
         compareTestCase(test, accepted, output);
     }
 
-    private void test11(){
+    private void test10(){
         String test = "Check the sum of the elements in the MyArrayList";
         myArrayList.clear();
         int sum=0;
@@ -284,7 +244,16 @@ public class MyArrayListTest {
             myArrayList.insertSorted(val);
             sum+=val;
         }
-        compareTestCase(test,sum,myArrayList.sum());
+        compareTestCase(test+"\nArray List : "+myArrayList.toString(),sum,myArrayList.sum());
+    }
+
+    @Override
+    public String toString(){
+        String className = this.getClass().getName();
+        String description = "Has a method named testMe(MyArrayList myArrayList, Results results)";
+        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s \n",className,description) ;
+        System.out.println(str);
+        return str;
     }
 
 }

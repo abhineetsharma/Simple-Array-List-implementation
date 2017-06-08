@@ -15,6 +15,7 @@ public class Driver {
         Results result;
         FileProcessor fPro;
         String str;
+        MyArrayListTest myArrayListTest;
         try {
             if (args != null && args.length == 2) {
 
@@ -23,6 +24,8 @@ public class Driver {
                 myArraylist = new MyArrayList();
                 result = new Results(oPath);
                 fPro = new FileProcessor(iPath);
+                myArrayListTest = new MyArrayListTest();
+
                 while ((str = fPro.readLine()) != null) {
                     try {
                         int val = Integer.parseInt(str);
@@ -32,7 +35,11 @@ public class Driver {
                         System.exit(0);
                     }
                 }
-                new MyArrayListTest().testMe(myArraylist, result);
+                fPro.toString();
+                result.toString();
+                myArrayListTest.toString();
+                myArrayListTest.testMe(myArraylist, result);
+                result.writeToStdout();
             } else {
                 System.out.println("Arguments not passed correctly");
                 System.exit(0);
@@ -41,6 +48,14 @@ public class Driver {
             ex.printStackTrace();
             System.exit(0);
         }
+    }
+    @Override
+    public String toString(){
+        String className = this.getClass().getName();
+        String description = "This has the main(...) function. \nIt create the MyArrayList instance and a Results instance, and call the testMe method on a MyArrayListTest instance. \nNext, it prints the String stored in the Results instance";
+        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\n",className,description );
+        System.out.println(str);
+        return str;
     }
 
 }

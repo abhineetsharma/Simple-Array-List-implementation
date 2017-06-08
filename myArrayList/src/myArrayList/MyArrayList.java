@@ -93,7 +93,7 @@ public class MyArrayList {
 
     public void removeValue(int value) {
         int counter;
-        while ((counter = binarySearch(value)) > -1) {
+        while ((counter = indexOf(value)) > -1) {
             for (int i = counter + 1; i < size(); i++) {
                 setArrayElement(i - 1 , getArrayElement(i));
             }
@@ -102,11 +102,11 @@ public class MyArrayList {
     }
 
     public int indexOf(int value) {
-        for (int i = 0; i < size(); i++){
-            int arrVal = getArrayElement(i);
-            if (arrVal == value) return i;
+        int index = binarySearch(value);
+        while(index >-1 && value == getArrayElement(index-1)){
+            index--;
         }
-        return -1;
+        return index;
     }
 
     public int sum() {

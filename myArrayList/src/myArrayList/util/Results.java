@@ -1,14 +1,19 @@
 package myArrayList.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.Writer;
+import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 
-public class Results implements StdoutDisplayInterface, FileDisplayInteface {
+
+public class Results implements StdoutDisplayInterface, FileDisplayInterface {
 
     private StringBuilder sbr;
     private String outputPath;
 
     public Results(String path) {
-        this.sbr = new StringBuilder();
+        this.setSbr(new StringBuilder());
         this.setOutputPath(path);
     }
 
@@ -21,31 +26,36 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
     }
 
     private String getString() {
-        return sbr.toString().trim();
+        return getSbr().toString().trim();
     }
 
-    private void add(String str) {
-        str = String.format("%s%s",str,"\n");
-        sbr.append(str);
+    private StringBuilder getSbr() {
+        return sbr;
+    }
+
+    private void setSbr(StringBuilder sbr) {
+        this.sbr = sbr;
     }
 
     public void storeNewResult(Object obj) {
-        String str =  obj.toString();
-        writeToStdout(str);
-        writeToFile(str);
+        String str = obj.toString();
+        str = String.format("%s%s",str,"\n");
+        StringBuilder sb = getSbr();
+        sb.append(str);
+        setSbr(sb);
     }
 
     @Override
-    public void writeToStdout(String str) {
-        System.out.println(str.toString());
+    public void writeToStdout() {
+        System.out.println(getString());
     }
 
     @Override
-    public void writeToFile(String str) {
+    public void writeToFile() {
 
         File file ;
         try {
-            add(str);
+
             file = new File(getOutputPath());
 
             if (file.exists() && !file.isDirectory()) {
@@ -65,5 +75,12 @@ public class Results implements StdoutDisplayInterface, FileDisplayInteface {
 
     }
 
-
+    @Override
+    public String toString(){
+        String className = this.getClass().getName();
+        String description = "This class has a data structure as private data member that store Strings and it implements FileDisplayInterface and StdoutDisplayInterface";
+        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\nPrivate variable :\noutputPath value is : %s\nsbr value is: %s\n",className,description ,getOutputPath(),getSbr().toString());
+        System.out.println(str);
+        return str;
+    }
 }
