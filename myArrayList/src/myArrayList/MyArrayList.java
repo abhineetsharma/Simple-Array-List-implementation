@@ -17,7 +17,7 @@ public class MyArrayList {
         this.printFlag = true;
     }
 
-    //Array accessor
+    //Array accessor for the class
     private int[] getArray(){
         return array;
     }
@@ -35,7 +35,10 @@ public class MyArrayList {
     }
 
 
-    //Helper Functions
+    //
+    // Helper Functions
+
+    //Binary Search
     private int binarySearch(int value) {
         int start = 0;
         int end = size() - 1;
@@ -50,11 +53,13 @@ public class MyArrayList {
         }
         return -1;
     }
+    //Increase the capacity of the array by half
     private void increaseCapacity() {
         int incrementSize = size()/2;
         setArray(incrementSize + size());
         reinitializeArrayWithDefaultValues();
     }
+    //Reinitialize the array and fill it with default Value(Integer.MAX_VALUE)
     private void reinitializeArrayWithDefaultValues() {
         setArray(getArrayLength());
         for (int i = 0; i < getArrayLength(); ) {
@@ -63,6 +68,10 @@ public class MyArrayList {
     }
     private boolean validityOfNumber(int val) {
         return val >= MIN && val <= MAX;
+    }
+
+    public void togglePrintFlag() {
+        this.printFlag = !printFlag;
     }
 
     //API function
@@ -138,7 +147,5 @@ public class MyArrayList {
     }
 
 
-    public void toggelPrintFlag() {
-        this.printFlag = !printFlag;
-    }
+
 }

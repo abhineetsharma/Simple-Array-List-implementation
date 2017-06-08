@@ -52,7 +52,7 @@ public class FileProcessor {
             String strLine;
             try {
                 if ((strLine = br.readLine()) != null)
-                    return strLine;
+                    return strLine.trim();
                 else {
                     br.close();
                     return null;

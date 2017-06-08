@@ -9,11 +9,11 @@ import java.io.OutputStreamWriter;
 
 public class Results implements StdoutDisplayInterface, FileDisplayInterface {
 
-    private StringBuilder sbr;
+    private StringBuilder stringBuilderStorage;
     private String outputPath;
 
     public Results(String path) {
-        this.setSbr(new StringBuilder());
+        this.setStringBuilderStorage(new StringBuilder());
         this.setOutputPath(path);
     }
 
@@ -25,29 +25,29 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
         this.outputPath = outputPath;
     }
 
-    private String getString() {
-        return getSbr().toString().trim();
+    private String getStoredString() {
+        return getStringBuilderStorage().toString().trim();
     }
 
-    private StringBuilder getSbr() {
-        return sbr;
+    private StringBuilder getStringBuilderStorage() {
+        return stringBuilderStorage;
     }
 
-    private void setSbr(StringBuilder sbr) {
-        this.sbr = sbr;
+    private void setStringBuilderStorage(StringBuilder stringBuilderStorage) {
+        this.stringBuilderStorage = stringBuilderStorage;
     }
 
     public void storeNewResult(Object obj) {
         String str = obj.toString();
         str = String.format("%s%s",str,"\n");
-        StringBuilder sb = getSbr();
+        StringBuilder sb = getStringBuilderStorage();
         sb.append(str);
-        setSbr(sb);
+        setStringBuilderStorage(sb);
     }
 
     @Override
     public void writeToStdout() {
-        System.out.println(getString());
+        System.out.println(getStoredString());
     }
 
     @Override
@@ -63,12 +63,12 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
             }
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(getOutputPath()), "utf-8"))) {
-                String str1 = getString();
-                writer.write(str1);
+                String str = getStoredString();
+                writer.write(str);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("Error in printing into the output file");
+            System.out.println("Error in printing stored string into the output file");
             System.exit(0);
         }
 
@@ -79,7 +79,7 @@ public class Results implements StdoutDisplayInterface, FileDisplayInterface {
     public String toString(){
         String className = this.getClass().getName();
         String description = "This class has a data structure as private data member that store Strings and it implements FileDisplayInterface and StdoutDisplayInterface";
-        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\nPrivate variable :\noutputPath value is : %s\nsbr value is: %s\n",className,description ,getOutputPath(),getSbr().toString());
+        String str = String.format("\nClass : %s\nMethod toString()\nDescription : %s\nPrivate variable :\noutputPath value is : %s\nstringBuilderStorage value is: %s\n",className,description ,getOutputPath(), getStringBuilderStorage().toString());
         System.out.println(str);
         return str;
     }

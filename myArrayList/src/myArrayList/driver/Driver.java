@@ -18,7 +18,6 @@ public class Driver {
         MyArrayListTest myArrayListTest;
         try {
             if (args != null && args.length == 2) {
-
                 iPath = args[0];
                 oPath = args[1];
                 myArraylist = new MyArrayList();
@@ -28,13 +27,17 @@ public class Driver {
 
                 while ((str = fPro.readLine()) != null) {
                     try {
-                        int val = Integer.parseInt(str);
+                        if(str.length()>0){
+                            int val = Integer.parseInt(str);
                             myArraylist.insertSorted(val);
+                        }
                     } catch (NumberFormatException ex) {
                         ex.printStackTrace();
                         System.exit(0);
                     }
                 }
+                result.storeNewResult(String.format("%d values inserted into the array list",myArraylist.size()));
+                result.storeNewResult(String.format("The sum of all the values in the array list is: %d",myArraylist.sum()));
                 myArrayListTest.testMe(myArraylist, result);
                 result.writeToStdout();
                 result.writeToFile();
