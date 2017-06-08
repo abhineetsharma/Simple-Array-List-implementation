@@ -39,6 +39,7 @@ public class MyArrayListTest {
         test8();
         test9();
         test10();
+
     }
 
     private int getRandomNumberFromRange(int min, int max) {
@@ -100,16 +101,18 @@ public class MyArrayListTest {
     }
 
     private void test1() {
+        myArrayList.toggelPrintFlag();
         String test = "Check the size of the array  after Insert a element in to the Array";
         int accepted = myArrayList.size() + 1;
         myArrayList.insertSorted(1);
         int output = myArrayList.size();
 
         compareTestCase(test, accepted, output);
-
+        myArrayList.toggelPrintFlag();
     }
 
     private void test2() {
+        myArrayList.toggelPrintFlag();
         int num = getRandomNumberFromRange(0,10000);
         String test = "Check if the element inserted into the array is inserted and sorted properly \nnumber to be inserted is " + num;
         int[] arr = getArrayFromMyArrayList(1);
@@ -124,9 +127,11 @@ public class MyArrayListTest {
         myArrayList.insertSorted(num);
         String output = myArrayList.toString();
         compareTestCase(test, accepted, output);
+        myArrayList.toggelPrintFlag();
     }
 
     private void test3() {
+        myArrayList.toggelPrintFlag();
         int[] arr = getArrayFromMyArrayList(0);
         int index = getRandomNumberFromRange(0, arr.length - 1);
         int num = arr[index];
@@ -140,10 +145,11 @@ public class MyArrayListTest {
         myArrayList.removeValue(num);
         String output = myArrayList.toString();
         compareTestCase(test, accepted, output);
-
+        myArrayList.toggelPrintFlag();
     }
 
     private void test4() {
+        myArrayList.toggelPrintFlag();
         int num = 100;
         String test = "Check by doing 2 insert of the same value (" + num + ")";
 
@@ -158,9 +164,11 @@ public class MyArrayListTest {
         myArrayList.insertSorted(num);
         String output = myArrayList.toString();
         compareTestCase(test, accepted, output);
+        myArrayList.toggelPrintFlag();
     }
 
     private void test5() {
+        myArrayList.toggelPrintFlag();
         int num = 22;
         String test = "Check to remove all instance of element from the array (2 instance of " + num + " will be entered and removed)";
 
@@ -182,10 +190,11 @@ public class MyArrayListTest {
         myArrayList.removeValue(num);
         String output = myArrayList.toString();
         compareTestCase(test, accepted, output);
-
+        myArrayList.toggelPrintFlag();
     }
 
     private void test6() {
+        myArrayList.toggelPrintFlag();
         int size = 25;
         String test = "Check in a clean my myarraylist by " + size + " inserting random numbers from 0 to 10001";
         myArrayList.clear();
@@ -200,9 +209,11 @@ public class MyArrayListTest {
         String output = myArrayList.toString();
 
         compareTestCase(test, accepted, output);
+        myArrayList.toggelPrintFlag();
     }
 
     private void test7() {
+        myArrayList.toggelPrintFlag();
         int[] arr = getArrayFromMyArrayList(0);
         int index = getRandomNumberFromRange(0, arr.length - 1);
 
@@ -212,9 +223,11 @@ public class MyArrayListTest {
 
         int output = myArrayList.indexOf(num);
         compareTestCase(test, accepted, output);
+        myArrayList.toggelPrintFlag();
     }
 
     private void test8() {
+        myArrayList.toggelPrintFlag();
         int num;
         while (true) {
             num = getRandomNumberFromRange(0, 10000);
@@ -223,19 +236,23 @@ public class MyArrayListTest {
         }
         String test = "Check the index of a element not in the MyArrayList (" + num + ")\n" + myArrayList.toString();
         compareTestCase(test, -1, myArrayList.indexOf(num));
+        myArrayList.toggelPrintFlag();
     }
 
 
 
     private void test9() {
+        myArrayList.toggelPrintFlag();
         String test = "Check the size of the empty array";
         String accepted = "0";
         myArrayList.clear();
         int output = myArrayList.size();
         compareTestCase(test, accepted, output);
+        myArrayList.toggelPrintFlag();
     }
 
     private void test10(){
+        myArrayList.toggelPrintFlag();
         String test = "Check the sum of the elements in the MyArrayList";
         myArrayList.clear();
         int sum=0;
@@ -245,6 +262,7 @@ public class MyArrayListTest {
             sum+=val;
         }
         compareTestCase(test+"\nArray List : "+myArrayList.toString(),sum,myArrayList.sum());
+        myArrayList.toggelPrintFlag();
     }
 
     @Override

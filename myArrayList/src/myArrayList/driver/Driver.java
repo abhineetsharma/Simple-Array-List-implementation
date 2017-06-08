@@ -35,11 +35,9 @@ public class Driver {
                         System.exit(0);
                     }
                 }
-                fPro.toString();
-                result.toString();
-                myArrayListTest.toString();
                 myArrayListTest.testMe(myArraylist, result);
                 result.writeToStdout();
+                result.writeToFile();
             } else {
                 System.out.println("Arguments not passed correctly");
                 System.exit(0);

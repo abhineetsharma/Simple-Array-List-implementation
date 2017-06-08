@@ -8,11 +8,13 @@ public class MyArrayList {
     private static final int MAX = 10000;
     private int[] array;
     private int size;
+    private boolean printFlag;
 
     //Constructor
     public MyArrayList() {
         this.setArray(INITIALSIZE);
         this.clear();
+        this.printFlag = true;
     }
 
     //Array accessor
@@ -127,9 +129,16 @@ public class MyArrayList {
         for (int i = 0; i < size(); i++)
             sbr.append(getArrayElement(i) + " ");
         String str = sbr.toString().trim();
-        System.out.println(str);
+        String sumString = "The sum of all the values in the array list is: " + sum();
+        if(printFlag){
+            System.out.println(str);
+            System.out.println(sumString);
+        }
         return str;
     }
 
 
+    public void toggelPrintFlag() {
+        this.printFlag = !printFlag;
+    }
 }
