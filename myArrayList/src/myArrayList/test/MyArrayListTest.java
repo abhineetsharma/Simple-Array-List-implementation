@@ -7,28 +7,33 @@ import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MyArrayListTest {
-    private Results results;
-    private MyArrayList myArrayList;
+    private Results results; // reference to incoming Results object
+    private MyArrayList myArrayList;// reference to incoming MyArrayList object
     private int testNumber;
     private String dash72;
 
+    //constructor
     public MyArrayListTest() {
         this.testNumber = 1;
         this.dash72 = generate72Dash();
     }
 
+    //initialize the MyArratList Object to class instance
     private void initializeMyArrayListObject(MyArrayList myArrayListObj) {
         myArrayList = myArrayListObj;
     }
 
+    //initialize the Results Object to class instance
     private void initializeResultObj(Results result) {
         results = result;
     }
-    
+
+    //calls the togglePrintFlag method of MyArrayList Object
     private void toggleMyArrayList_toStringMethod(){
         myArrayList.togglePrintFlag();
     }
     
+    //The function that contains call to 10 test methods
     public void testMe(MyArrayList myArrayListObj, Results result) {
         initializeMyArrayListObject(myArrayListObj);
         initializeResultObj(result);
@@ -46,10 +51,12 @@ public class MyArrayListTest {
 
     }
 
+    //return a random number out off specified range
     private int getRandomNumberFromRange(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
+    //function that compare test case through strings compare and store the result in Results data object
     private void compareTestCaseAndStoreIt(String testCaseName, Object acceptedResult, Object outputResult) {
         String sCompare = stringCompare(acceptedResult.toString(), outputResult.toString()) ? "Passed" : "Failed";
         int testNumber = getCurrentTestNumber();
@@ -66,14 +73,17 @@ public class MyArrayListTest {
         results.storeNewResult(str);
     }
 
+    ///String compare function
     private boolean stringCompare(String str1, String str2) {
         return str1.trim().equalsIgnoreCase(str2.trim());
     }
 
+    //get the current test case number
     private int getCurrentTestNumber() {
         return testNumber++;
     }
 
+    //generate 72 Dash(-)
     private String generate72Dash() {
         StringBuilder sbr = new StringBuilder();
         for (int i = 0; i < 72; i++) sbr.append("-");
@@ -81,6 +91,7 @@ public class MyArrayListTest {
         return sbr.toString();
     }
 
+    //gets the copy of array from the array list string method(for Testing)
     private int[] getArrayFromMyArrayList(int bandwidth) {
         String[] sArray = myArrayList.toString().split(" ");
         int[] arr = new int[sArray.length + bandwidth];
@@ -92,21 +103,21 @@ public class MyArrayListTest {
         return arr;
     }
 
+    //converts array to a String(for Testing)
     private String stringifyArray(int size, int[] array) {
         StringBuilder sbr = new StringBuilder();
         for (int i = 0; i < size; i++) {
             if (array[i] == -1) continue;
-            sbr.append(array[i] + " ");
+            sbr.append(array[i]).append(" ");
         }
-        String str = sbr.toString().trim();
-        return str;
+        return sbr.toString().trim();
     }
 
     private void test1() {
         toggleMyArrayList_toStringMethod();
         int num = getRandomNumberFromRange(0,10000);
         String test = String.format("Check the size of the array  after Insert %d in to the Array",num);
-        int accepted = myArrayList.size() + num;
+        int accepted = myArrayList.size()+1;
         myArrayList.insertSorted(num);
         int output = myArrayList.size();
 
@@ -155,6 +166,7 @@ public class MyArrayListTest {
         toggleMyArrayList_toStringMethod();
         int num = 100;
         String test = "Check by doing 2 insert of the same value (" + num + ")";
+
 
         int[] arr = getArrayFromMyArrayList(2);
         arr[arr.length - 2] = num;
@@ -242,8 +254,6 @@ public class MyArrayListTest {
         toggleMyArrayList_toStringMethod();
     }
 
-
-
     private void test9() {
         toggleMyArrayList_toStringMethod();
         String test = "Check the size of the empty array";
@@ -268,6 +278,7 @@ public class MyArrayListTest {
         toggleMyArrayList_toStringMethod();
     }
 
+    //Class toSting() method
     @Override
     public String toString(){
         String className = this.getClass().getName();

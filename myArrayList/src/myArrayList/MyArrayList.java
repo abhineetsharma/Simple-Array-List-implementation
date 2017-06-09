@@ -114,7 +114,7 @@ public class MyArrayList {
 
     public int indexOf(int value) {
         int index = binarySearch(value);
-        while(index >-1 && value == getArrayElement(index-1)){
+        while(index >0 && value == getArrayElement(index-1)){
             index--;
         }
         return index;
@@ -136,7 +136,7 @@ public class MyArrayList {
     public String toString() {
         StringBuilder sbr = new StringBuilder();
         for (int i = 0; i < size(); i++)
-            sbr.append(getArrayElement(i) + " ");
+            sbr.append(getArrayElement(i)).append(" ");
         String str = sbr.toString().trim();
         String sumString = "The sum of all the values in the array list is: " + sum();
         if(printFlag){
