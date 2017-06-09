@@ -35,8 +35,9 @@ offense.”
 
 Provide justification for Data Structures used in this assignment in
 
-Insert into the Array are complexity O(n)
-IndexOf uses binary search and in case of multiple occurrence of a element the index moves to wards the first occurrence of the number
+Insert into the Array if of complexity O(n)
+IndexOf uses binary search and in case of multiple occurrence of a element
+the index moves towards the first occurrence of the number
 (time complexity Average case for binary search is: log n).
 remove uses the indexOf to search the element and remove.
 -----------------------------------------------------------------------

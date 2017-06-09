@@ -9,6 +9,7 @@ public class MyArrayList {
     private int[] array;
     private int size;
     private boolean printFlag;
+    private boolean newArrayFlag;
 
     //Constructor
     public MyArrayList() {
@@ -23,6 +24,7 @@ public class MyArrayList {
     }
     private void setArray(int length){
         array = new int[length];
+        newArrayFlag = true;
     }
     private int getArrayElement(int index) {
         return array[index];
@@ -35,7 +37,6 @@ public class MyArrayList {
     }
 
 
-    //
     // Helper Functions
 
     //Binary Search
@@ -57,14 +58,11 @@ public class MyArrayList {
     private void increaseCapacity() {
         int incrementSize = size()/2;
         setArray(incrementSize + size());
-        reinitializeArrayWithDefaultValues();
+        reinitializeArray();
     }
-    //Reinitialize the array and fill it with default Value(Integer.MAX_VALUE)
-    private void reinitializeArrayWithDefaultValues() {
+    //Reinitialize the array
+    private void reinitializeArray() {
         setArray(getArrayLength());
-        for (int i = 0; i < getArrayLength(); ) {
-            setArrayElement(i++,MAXVALUE);
-        }
     }
     private boolean validityOfNumber(int val) {
         return val >= MIN && val <= MAX;
@@ -77,28 +75,37 @@ public class MyArrayList {
     //API function
     public void clear() {
         size = 0;
-        reinitializeArrayWithDefaultValues();
+        reinitializeArray();
     }
 
     public void insertSorted(int newValue) {
         if(validityOfNumber(newValue)){
-            int[] temp = getArray();
-
+            int [] temp = getArray();
             if (size() == getArrayLength())
+            {
                 increaseCapacity();
-            else
-                reinitializeArrayWithDefaultValues();
-
-            int i = 0;
-            for (; i < size(); i++) {
-                if (newValue < temp[i]) break;
-                setArrayElement(i,temp[i]);
             }
-            setArrayElement(i, newValue);
+            int i =0;
+            for(;i<size();i++){
+                if(newArrayFlag)
+                    setArrayElement(i,temp[i]);
+                if(newValue<temp[i]){
+                    break;
+                }
+            }
+            for(int j=temp.length-1; j>i; j--)
+            {
+                array[j] = temp[j-1];
+                setArrayElement(j,temp[j-1]);
+            }
+            setArrayElement(i,newValue);
             size++;
-            for (int j = i + 1;j < size(); j++) {
-                setArrayElement(j,temp[i++]);
+            if(newArrayFlag){
+                for(int k=size();k<getArrayLength();k++)
+                    setArrayElement(k,MAXVALUE);
+                newArrayFlag = false;
             }
+
         }
     }
 

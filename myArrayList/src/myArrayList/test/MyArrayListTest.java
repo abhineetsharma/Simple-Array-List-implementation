@@ -71,6 +71,7 @@ public class MyArrayListTest {
                 sCompare,
                 dash72);
         results.storeNewResult(str);
+
     }
 
     ///String compare function
@@ -211,7 +212,7 @@ public class MyArrayListTest {
     private void test6() {
         toggleMyArrayList_toStringMethod();
         int size = 25;
-        String test = "Check in a clean my MyArrayList by " + size + " inserting random numbers from 0 to 10001";
+        String test = "Check in a clean my MyArrayList by  inserting " + size + "  random numbers from 0 to 10001";
         myArrayList.clear();
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) {
