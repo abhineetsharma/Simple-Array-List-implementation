@@ -79,30 +79,28 @@ public class MyArrayList {
     }
 
     public void insertSorted(int newValue) {
-        if(validityOfNumber(newValue)){
-            int [] temp = getArray();
-            if (size() == getArrayLength())
-            {
+        if (validityOfNumber(newValue)) {
+            int[] temp = getArray();
+            if (size() == getArrayLength()) {
                 increaseCapacity();
             }
-            int i =0;
-            for(;i<size();i++){
-                if(newArrayFlag)
-                    setArrayElement(i,temp[i]);
-                if(newValue<temp[i]){
+            int i = 0;
+            for (; i < size(); i++) {
+                if (newValue < temp[i]) {
                     break;
                 }
+                if (newArrayFlag) {
+                    setArrayElement(i, temp[i]);
+                }
             }
-            for(int j=temp.length-1; j>i; j--)
-            {
-                array[j] = temp[j-1];
-                setArrayElement(j,temp[j-1]);
+            for (int j = size ; j > i; j--) {
+                setArrayElement(j, temp[j-1]);
             }
-            setArrayElement(i,newValue);
+            setArrayElement(i, newValue);
             size++;
-            if(newArrayFlag){
-                for(int k=size();k<getArrayLength();k++)
-                    setArrayElement(k,MAXVALUE);
+            if (newArrayFlag) {
+                for (int k = size(); k < getArrayLength(); k++)
+                    setArrayElement(k, MAXVALUE);
                 newArrayFlag = false;
             }
 
